@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Obras e Portfólio | Projeeng Estruturas Metálicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== CONFIGURAÇÕES GLOBAIS ===================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul:        #1B2F6E;
+      --azul-md:     #223A8A;
+      --dourado:     #A0722A;
+      --dourado-clr: #C49240;
+      --branco:      #FFFFFF;
+      --cinza-bg:    #F5F5F5;
+      --cinza-borda: #E0E0E0;
+      --texto-esc:   #1A1A2E;
+      --texto-med:   #3D3D55;
+      --texto-suave: #7A7A90;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--texto-esc);
+      overflow-x: hidden;
+      /* Fundo imersivo corporativo */
+      background-image: url('arquivos/fundo4.png');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 76px;
+      background: rgba(255,255,255,0.88);
+      border-bottom: 1px solid rgba(27,47,110,0.07); transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(27,47,110,0.12); }
+
+    .nav-logo img { height: 110px; display: block; }
+    .nav-logo-txt { font-weight: 900; font-size: 1.3rem; color: var(--azul); letter-spacing: -0.02em; line-height: 1; }
+    .nav-logo-txt small { display: block; font-size: 0.52rem; font-weight: 600; letter-spacing: 0.20em; color: var(--texto-suave); }
+
+    .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.80rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--texto-med); transition: color 0.25s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--dourado); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--azul); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--azul); }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--azul) !important; color: var(--branco) !important;
+      padding: 10px 22px !important; border-radius: 4px;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--dourado) !important; transform: translateY(-1px); }
+
+    /* ===================== HERO DA PÁGINA ===================== */
+    .page-hero {
+      position: relative; min-height: 48vh; display: flex; align-items: flex-end;
+      padding: 0 6% 64px; background: transparent; padding-top: 76px;
+    }
+    .page-hero-content { display: flex; justify-content: flex-end; width: 100%; padding-top: 80px; }
+    .page-hero-box {
+      max-width: 580px; background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px; padding: 36px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10); animation: fadeUp 0.9s ease both;
+    }
+    .page-hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(160,114,42,0.10); border: 1px solid rgba(160,114,42,0.30);
+      border-radius: 100px; padding: 6px 16px; font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--dourado); margin-bottom: 20px;
+    }
+    .page-hero-badge span { width: 6px; height: 6px; background: var(--dourado); border-radius: 50%; display: inline-block; }
+    .page-hero-box h1 {
+      font-size: clamp(1.9rem, 3.2vw, 2.9rem); font-weight: 900; line-height: 1.12;
+      color: var(--texto-esc); letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .page-hero-box h1 em { font-style: normal; color: var(--azul); }
+    .hero-sep { width: 56px; height: 3px; background: linear-gradient(90deg, var(--azul), var(--dourado)); border-radius: 2px; margin-bottom: 18px; }
+    .page-hero-box p { font-size: 0.97rem; line-height: 1.76; color: var(--texto-med); }
+
+    /* ===================== LABELS ===================== */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px; font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--dourado); margin-bottom: 16px;
+    }
+    .section-label.center { justify-content: center; }
+    .section-label.center::before, .section-label.center::after { content: ''; width: 28px; height: 2px; background: var(--dourado); border-radius: 1px; }
+
+    /* ===================== PORTFÓLIO GRID ===================== */
+    .portfolio-section { padding: 60px 6% 100px; background: transparent; }
+    .portfolio-inner { max-width: 1400px; margin: 0 auto; }
+    
+    .portfolio-header { text-align: center; margin-bottom: 50px; }
+    .portfolio-header h2 { font-size: clamp(1.8rem, 2.6vw, 2.4rem); font-weight: 800; color: var(--texto-esc); letter-spacing: -0.02em; }
+
+    .obras-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .obra-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-radius: 6px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 8px 30px rgba(27,47,110,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: flex; flex-direction: column;
+    }
+    
+    .obra-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(27,47,110,0.15);
+    }
+
+    .obra-img-container {
+      width: 100%; height: 280px;
+      overflow: hidden; position: relative;
+      background: var(--cinza-bg);
+    }
+    
+    .obra-img-container img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    
+    .obra-card:hover .obra-img-container img {
+      transform: scale(1.08);
+    }
+
+    /* Placeholders visuais para enquanto as fotos reais não chegam */
+    .img-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      background: rgba(245,245,245,0.95); color: var(--texto-suave);
+      font-size: 0.70rem; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+      border-bottom: 2px solid var(--cinza-borda);
+    }
+
+    /* Linha de cor abaixo da imagem */
+    .obra-linha { height: 4px; background: linear-gradient(90deg, var(--azul), var(--dourado)); }
+
+    .obra-info { padding: 30px 26px; display: flex; flex-direction: column; flex-grow: 1; }
+    
+    .obra-cliente {
+      font-size: 1.15rem; font-weight: 800; color: var(--texto-esc);
+      margin-bottom: 6px; line-height: 1.2; letter-spacing: -0.01em;
+    }
+    
+    .obra-tipo {
+      font-size: 0.75rem; font-weight: 700; color: var(--dourado);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px;
+    }
+
+    /* Ficha Técnica (Grid interna) */
+    .ficha-tecnica {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      background: rgba(27,47,110,0.03); border-radius: 4px;
+      padding: 16px; border: 1px solid rgba(27,47,110,0.05);
+      margin-top: auto;
+    }
+
+    .ficha-item { display: flex; flex-direction: column; gap: 4px; }
+    .ficha-item span.lbl { font-size: 0.65rem; font-weight: 600; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.08em; }
+    .ficha-item span.val { font-size: 0.85rem; font-weight: 700; color: var(--azul); }
+    .ficha-item.full { grid-column: span 2; }
+
+    /* ===================== CTA E RODAPÉ ===================== */
+    .cta-section { position: relative; background: var(--azul); padding: 100px 6%; text-align: center; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--dourado), var(--azul-md), var(--dourado)); }
+    .cta-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size: 48px 48px; }
+    .cta-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .cta-content .section-label { color: var(--dourado-clr); justify-content: center; }
+    .cta-content .section-label::before, .cta-content .section-label::after { background: var(--dourado-clr); }
+    .cta-content h2 { font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-weight: 800; color: var(--branco); letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 18px; }
+    .cta-content p { font-size: 1rem; color: rgba(255,255,255,0.68); line-height: 1.72; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-p { display: inline-flex; align-items: center; gap: 10px; background: var(--dourado); color: var(--branco); padding: 16px 36px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; text-decoration: none; transition: background 0.25s, transform 0.2s; box-shadow: 0 4px 20px rgba(160,114,42,0.35); }
+    .btn-cta-p:hover { background: var(--dourado-clr); transform: translateY(-2px); }
+    .btn-cta-s { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--branco); padding: 16px 30px; border-radius: 4px; border: 2px solid rgba(255,255,255,0.35); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+    .btn-cta-s:hover { border-color: var(--branco); background: rgba(255,255,255,0.08); }
+
+    footer { background: #EBEBEB; border-top: 1px solid #D8D8D8; }
+    .footer-bar { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; padding: 0 5%; min-height: 72px; flex-wrap: wrap; gap: 0; }
+    .footer-item { display: flex; align-items: center; gap: 10px; padding: 18px 28px; position: relative; flex-shrink: 0; }
+    .footer-item + .footer-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0; }
+    .footer-item svg { flex-shrink: 0; color: #2C2C2C; width: 18px; height: 18px; }
+    .footer-item-text { display: flex; flex-direction: column; line-height: 1.35; }
+    .footer-item-text span { font-size: 0.78rem; font-weight: 500; color: #2C2C2C; white-space: nowrap; }
+    .footer-social-group { display: flex; align-items: center; gap: 18px; padding: 18px 0 18px 28px; position: relative; }
+    .footer-social-group::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0; }
+    .footer-social-group a { display: flex; align-items: center; justify-content: center; color: #2C2C2C; text-decoration: none; transition: color 0.2s, transform 0.2s; }
+    .footer-social-group a:hover { color: var(--azul); transform: translateY(-2px); }
+    .footer-social-group a svg { width: 20px; height: 20px; }
+    .footer-stripe { height: 5px; background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado) 60%, var(--azul) 60%, var(--azul) 100%); }
+
+    /* ===================== WHATSAPP FLUTUANTE ===================== */
+    .wpp-float { position: fixed; bottom: 80px; right: 28px; z-index: 9999; width: 58px; height: 58px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.40); text-decoration: none; transition: transform 0.25s, box-shadow 0.25s; animation: pulseW 2.5s infinite; }
+    .wpp-float:hover { transform: scale(1.08); box-shadow: 0 8px 30px rgba(37,211,102,0.55); animation: none; }
+    .wpp-float svg { color: white; }
+    .wpp-tip { position: absolute; right: 68px; background: var(--texto-esc); color: var(--branco); font-size: 0.74rem; font-weight: 600; white-space: nowrap; padding: 7px 14px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .wpp-tip::after { content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right: none; border-left-color: var(--texto-esc); }
+    .wpp-float:hover .wpp-tip { opacity: 1; }
+
+    /* ===================== ANIMAÇÕES & RESPONSIVO ===================== */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulseW { 0%,100% { box-shadow:0 4px 20px rgba(37,211,102,0.40); } 50% { box-shadow:0 4px 32px rgba(37,211,102,0.65); } }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.10s} .d2{transition-delay:0.20s} .d3{transition-delay:0.30s} .d4{transition-delay:0.40s} .d5{transition-delay:0.50s} .d6{transition-delay:0.60s}
+
+    .nav-toggle { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 42px; height: 42px; background: none; border: none; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s; z-index: 1100; }
+    .nav-toggle:hover { background: rgba(27,47,110,0.07); }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--azul); border-radius: 2px; transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media(max-width:1024px) {
+      .obras-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:768px) {
+      .nav-toggle { display: flex; }
+      .nav-links { display: flex; flex-direction: column; position: fixed; top: 76px; left: 0; right: 0; background: rgba(255,255,255,0.97); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 2px solid rgba(27,47,110,0.10); box-shadow: 0 8px 32px rgba(27,47,110,0.12); padding: 12px 0 20px; gap: 0; list-style: none; transform: translateY(-110%); opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.30s ease; z-index: 999; }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-links a { display: block; padding: 14px 6%; border-bottom: 1px solid rgba(27,47,110,0.06); }
+      .nav-cta { margin: 12px 6% 0 !important; text-align: center !important; }
+      
+      .page-hero-content { justify-content: center; }
+      .obras-grid { grid-template-columns: 1fr; }
+      
+      .footer-bar { flex-direction: column; align-items: flex-start; padding: 16px 5%; }
+      .footer-item + .footer-item::before, .footer-social-group::before { display: none; }
+      .footer-item, .footer-social-group { padding: 8px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="arquivos/logo.png" alt="Projeeng" onerror="this.style.display='none'; document.getElementById('logo-txt').style.display='block'">
+      <div id="logo-txt" class="nav-logo-txt" style="display:none">PROJEENG<small>ESTRUTURAS METÁLICAS LTDA</small></div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">A Empresa</a></li>
+      <li><a href="solucoes.html">Soluções</a></li>
+      <li><a href="obras.html" class="active">Obras</a></li>
+      <li><a href="contato.html" class="nav-cta">Solicitar Orçamento</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-hero-box">
+        <div class="page-hero-badge">
+          <span></span>Portfólio de Engenharia
+        </div>
+        <h1>
+          Nossa capacidade<br>
+          <em>comprovada</em> em<br>
+          cada detalhe
+        </h1>
+        <div class="hero-sep"></div>
+        <p>
+          Mais do que projetos no papel, entregamos obras estruturais de alta performance. 
+          Conheça algumas das estruturas fabricadas e montadas pela nossa equipe.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-section">
+    <div class="portfolio-inner">
+      <div class="portfolio-header reveal">
+        <div class="section-label center">Projetos Entregues</div>
+        <h2>Excelência em diferentes escalas</h2>
+      </div>
+
+      <div class="obras-grid">
+
+        <div class="obra-card reveal d1">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Galpão Logístico<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-galpao-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Galpão Industrial</span>
+            <h3 class="obra-cliente">Indústria de Alimentos - Expansão Fabril</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Chapecó, SC</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2025</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">4.200 m²</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obra-card reveal d2">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Cobertura<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-cobertura-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Cobertura Metálica</span>
+            <h3 class="obra-cliente">Complexo Esportivo e Quadras</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Xanxerê, SC</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2024</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">2.120 m²</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obra-card reveal d3">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Mezanino<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-mezanino-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Mezanino e Reforço</span>
+            <h3 class="obra-cliente">Centro de Distribuição Varejista</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Cascavel, PR</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2024</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">850 m² (Piso Suspenso)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obra-card reveal d4">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Frigorífico<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-frigorifico-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Galpão Especializado</span>
+            <h3 class="obra-cliente">Unidade de Abate e Resfriamento</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Pinhalzinho, SC</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2023</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">3.650 m²</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obra-card reveal d5">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Concessionária<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-comercial-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Estrutura Comercial</span>
+            <h3 class="obra-cliente">Concessionária de Veículos</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Rio do Sul, SC</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2023</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">1.200 m²</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="obra-card reveal d6">
+          <div class="obra-img-container">
+            <div class="img-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto de Pergolado / Escada<br><code style="font-size:0.6rem;opacity:0.6;">arquivos/obra-arquitetonica-01.jpg</code>
+            </div>
+            </div>
+          <div class="obra-linha"></div>
+          <div class="obra-info">
+            <span class="obra-tipo">Projeto Arquitetônico</span>
+            <h3 class="obra-cliente">Residência Alto Padrão - Escadas e Alpendre</h3>
+            
+            <div class="ficha-tecnica">
+              <div class="ficha-item">
+                <span class="lbl">Localização</span>
+                <span class="val">Chapecó, SC</span>
+              </div>
+              <div class="ficha-item">
+                <span class="lbl">Ano</span>
+                <span class="val">2025</span>
+              </div>
+              <div class="ficha-item full">
+                <span class="lbl">Dimensões / Área Total</span>
+                <span class="val">180 m² (Área Metálica)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-pattern"></div>
+    <div class="cta-content">
+      <div class="section-label center">Traga Seu Projeto</div>
+      <h2>A sua obra pode ser a próxima da nossa galeria</h2>
+      <p>Nossa equipe de engenharia está pronta para analisar suas necessidades e garantir uma estrutura metálica com precisão, segurança e entrega no prazo.</p>
+      <div class="cta-btns">
+        <a href="contato.html" class="btn-cta-p">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Solicitar Orçamento da Obra
+        </a>
+        <a href="https://wa.me/5549988546393" target="_blank" class="btn-cta-s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Conversar com Engenheiro
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bar">
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="footer-item-text">
+          <span>Rua das Estruturas, 123</span>
+          <span>Bairro Industrial</span>
+          <span>Cidade - UF, 00000-000</span>
+        </div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        <div class="footer-item-text">
+          <span>(00) 0000-0000</span>
+          <span>(00) 00000-0000</span>
+        </div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div class="footer-item-text"><span>contato@projeeng.com.br</span></div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="footer-item-text"><span>www.projeeng.com.br</span></div>
+      </div>
+      <div class="footer-social-group">
+        <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.instagram.com/projeengestruturasmetalicas/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-stripe"></div>
+
+  <a href="https://wa.me/5549988546393" target="_blank" class="wpp-float">
+    <div class="wpp-tip">Solicitar orçamento</div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Menu
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.classList.remove('open'); });
+    });
+
+    // Scroll Navbar
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+
+    // Animações Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.88;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add('visible');
+      });
+    }
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    checkReveal();
+  </script>
+</body>
+</html>

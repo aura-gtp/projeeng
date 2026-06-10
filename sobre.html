@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Empresa | Projeeng Estruturas Metálicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul:        #1B2F6E;
+      --azul-md:     #223A8A;
+      --dourado:     #A0722A;
+      --dourado-clr: #C49240;
+      --branco:      #FFFFFF;
+      --cinza-bg:    #F5F5F5;
+      --cinza-borda: #E0E0E0;
+      --texto-esc:   #1A1A2E;
+      --texto-med:   #3D3D55;
+      --texto-suave: #7A7A90;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--texto-esc);
+      overflow-x: hidden;
+      background-image: url('arquivos/fundo2.png');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 76px;
+      background: rgba(255,255,255,0.88);
+      border-bottom: 1px solid rgba(27,47,110,0.07);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(27,47,110,0.12); }
+
+    .nav-logo img { height: 110px; display: block; }
+    .nav-logo-txt {
+      font-weight: 900; font-size: 1.3rem;
+      color: var(--azul); letter-spacing: -0.02em; line-height: 1;
+    }
+    .nav-logo-txt small {
+      display: block; font-size: 0.52rem; font-weight: 600;
+      letter-spacing: 0.20em; color: var(--texto-suave);
+    }
+
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 34px; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; font-size: 0.80rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--texto-med); transition: color 0.25s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--dourado); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--azul); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--azul); }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--azul) !important; color: var(--branco) !important;
+      padding: 10px 22px !important; border-radius: 4px;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--dourado) !important; transform: translateY(-1px); }
+
+    /* ===================== HERO INTERNO ===================== */
+    /* Mais compacto que o da Home — funciona como cabeçalho de página */
+    .page-hero {
+      position: relative;
+      min-height: 52vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 6% 64px;
+      background: transparent;
+      padding-top: 76px;
+    }
+
+    .page-hero-content {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      padding-top: 80px;
+    }
+
+    .page-hero-box {
+      max-width: 560px;
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px;
+      padding: 36px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .page-hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(160,114,42,0.10);
+      border: 1px solid rgba(160,114,42,0.30);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dourado); margin-bottom: 20px;
+    }
+    .page-hero-badge span { width: 6px; height: 6px; background: var(--dourado); border-radius: 50%; display: inline-block; }
+
+    .page-hero-box h1 {
+      font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+      font-weight: 900; line-height: 1.12;
+      color: var(--texto-esc); letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .page-hero-box h1 em { font-style: normal; color: var(--azul); }
+
+    .hero-sep {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--dourado));
+      border-radius: 2px; margin-bottom: 18px;
+    }
+
+    .page-hero-box p {
+      font-size: 0.97rem; line-height: 1.76; color: var(--texto-med);
+    }
+
+    /* ===================== BARRA STATS ===================== */
+    .stats-bar { background: var(--azul); }
+    .stats-inner {
+      display: flex; justify-content: space-between; align-items: stretch;
+      max-width: 1400px; margin: 0 auto; padding: 0 6%;
+    }
+    .stat-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 38px 20px;
+      border-right: 1px solid rgba(255,255,255,0.10); text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.9rem; font-weight: 700; color: var(--branco); line-height: 1;
+    }
+    .stat-num span { color: var(--dourado-clr); }
+    .stat-label {
+      font-size: 0.70rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.50); margin-top: 6px;
+    }
+
+    /* ===================== GLASS BOX UTILITÁRIO ===================== */
+    .glass-box {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+    }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dourado); margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: ''; width: 28px; height: 2px;
+      background: var(--dourado); border-radius: 1px;
+    }
+    .section-label.center { justify-content: center; }
+    .section-label.center::after {
+      content: ''; width: 28px; height: 2px;
+      background: var(--dourado); border-radius: 1px;
+    }
+
+    /* ===================== HISTÓRIA ===================== */
+    .historia {
+      background: transparent;
+      padding: 100px 6%;
+    }
+    .historia-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Foto com decoração de canto igual à Home */
+    .historia-img-wrap { position: relative; }
+    .historia-img-wrap img {
+      width: 100%; height: 480px; object-fit: cover;
+      border-radius: 2px; display: block;
+    }
+    .img-placeholder {
+      width: 100%; height: 480px;
+      background: rgba(245,245,245,0.90);
+      border-radius: 2px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; border: 2px dashed var(--cinza-borda);
+      color: var(--texto-suave);
+      font-size: 0.76rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 24px;
+    }
+    .historia-img-wrap::before {
+      content: '';
+      position: absolute; top: -16px; left: -16px;
+      width: 72px; height: 72px;
+      border-top: 3px solid var(--dourado);
+      border-left: 3px solid var(--dourado);
+      border-radius: 2px; z-index: 1;
+    }
+    .historia-img-wrap::after {
+      content: '';
+      position: absolute; bottom: -16px; right: -16px;
+      width: 72px; height: 72px;
+      border-bottom: 3px solid var(--azul);
+      border-right: 3px solid var(--azul);
+      border-radius: 2px;
+    }
+
+    .historia-texto-box {
+      padding: 40px 44px;
+    }
+    .historia-texto-box h2 {
+      font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+      font-weight: 800; line-height: 1.18;
+      color: var(--texto-esc); margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .historia-texto-box h2 em { font-style: normal; color: var(--azul); }
+    .historia-texto-box p {
+      font-size: 0.96rem; line-height: 1.82;
+      color: var(--texto-med); margin-bottom: 16px;
+    }
+    .historia-texto-box p:last-child { margin-bottom: 0; }
+
+    /* ===================== MISSÃO / VISÃO / VALORES ===================== */
+    .mvv {
+      background: transparent;
+      padding: 0 6% 100px;
+    }
+    .mvv-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* Opção B: barra horizontal corrida com divisórias */
+    .mvv-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+    }
+
+    .mvv-item {
+      padding: 48px 40px;
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.55);
+      position: relative;
+      transition: background 0.3s;
+    }
+    .mvv-item:hover { background: rgba(255,255,255,0.92); }
+
+    /* Divisória vertical entre itens */
+    .mvv-item + .mvv-item::before {
+      content: '';
+      position: absolute; left: 0; top: 10%; bottom: 10%;
+      width: 1px; background: rgba(27,47,110,0.10);
+    }
+
+    /* Linha dourada no topo de cada item */
+    .mvv-item-top {
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--dourado));
+      position: absolute; top: 0; left: 0; right: 0;
+    }
+
+    .mvv-icon {
+      width: 52px; height: 52px;
+      background: rgba(27,47,110,0.07);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .mvv-icon svg { color: var(--azul); }
+
+    .mvv-item h3 {
+      font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dourado); margin-bottom: 14px;
+    }
+    .mvv-item p {
+      font-size: 0.93rem; line-height: 1.80; color: var(--texto-med);
+    }
+
+    /* ===================== EQUIPE / FOTOS ===================== */
+    .equipe {
+      background: transparent;
+      padding: 0 6% 100px;
+    }
+    .equipe-inner { max-width: 1240px; margin: 0 auto; }
+
+    .section-header-wrap {
+      text-align: center; margin-bottom: 60px;
+    }
+    .section-header-box {
+      display: inline-block;
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 6px;
+      padding: 28px 40px;
+      border: 1px solid rgba(255,255,255,0.50);
+      box-shadow: 0 4px 24px rgba(27,47,110,0.08);
+      width: 100%;
+      max-width: 640px;
+    }
+    .section-header-box h2 {
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem); font-weight: 800;
+      color: var(--texto-esc); letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    .section-header-box p {
+      font-size: 0.95rem; color: var(--texto-suave); line-height: 1.7;
+    }
+
+    .fotos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .foto-card {
+      border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(27,47,110,0.10);
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.55);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .foto-card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(27,47,110,0.16); }
+    .foto-card-top { height: 3px; background: linear-gradient(90deg, var(--azul), var(--dourado)); }
+
+    .foto-img {
+      width: 100%; height: 240px;
+      background: rgba(245,245,245,0.90);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px; position: relative; overflow: hidden;
+    }
+    .foto-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .foto-img-lbl {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      color: var(--texto-suave); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.10em; text-transform: uppercase; text-align: center; padding: 16px;
+    }
+
+    .foto-body { padding: 20px 22px; }
+    .foto-body h3 { font-size: 0.92rem; font-weight: 700; color: var(--texto-esc); margin-bottom: 6px; }
+    .foto-body p { font-size: 0.80rem; line-height: 1.60; color: var(--texto-suave); }
+
+    /* ===================== DIFERENCIAIS ===================== */
+    .diferenciais-section {
+      background: transparent;
+      padding: 0 6% 100px;
+    }
+    .dif-inner { max-width: 1240px; margin: 0 auto; }
+
+    .dif-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .dif-card {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 4px;
+      padding: 32px 26px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 4px 24px rgba(27,47,110,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .dif-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--dourado));
+    }
+    .dif-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(27,47,110,0.14); }
+
+    .dif-card-icon {
+      width: 48px; height: 48px;
+      background: rgba(27,47,110,0.07);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .dif-card-icon svg { color: var(--azul); }
+    .dif-card h3 { font-size: 0.88rem; font-weight: 700; color: var(--texto-esc); margin-bottom: 10px; line-height: 1.3; }
+    .dif-card p { font-size: 0.80rem; line-height: 1.65; color: var(--texto-suave); }
+
+    /* ===================== CTA ===================== */
+    .cta-section {
+      position: relative;
+      background: var(--azul);
+      padding: 100px 6%;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--dourado), var(--azul-md), var(--dourado));
+    }
+    .cta-pattern {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+      background-size: 48px 48px;
+    }
+    .cta-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .cta-content .section-label { color: var(--dourado-clr); justify-content: center; }
+    .cta-content .section-label::before { background: var(--dourado-clr); }
+    .cta-content .section-label::after { content: ''; width: 28px; height: 2px; background: var(--dourado-clr); border-radius: 1px; }
+    .cta-content h2 {
+      font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-weight: 800;
+      color: var(--branco); letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 18px;
+    }
+    .cta-content p { font-size: 1rem; color: rgba(255,255,255,0.68); line-height: 1.72; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-cta-p {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--dourado); color: var(--branco);
+      padding: 16px 36px; border-radius: 4px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(160,114,42,0.35);
+    }
+    .btn-cta-p:hover { background: var(--dourado-clr); transform: translateY(-2px); }
+
+    .btn-cta-s {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--branco);
+      padding: 16px 30px; border-radius: 4px;
+      border: 2px solid rgba(255,255,255,0.35);
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .btn-cta-s:hover { border-color: var(--branco); background: rgba(255,255,255,0.08); }
+
+    /* ===================== RODAPÉ ===================== */
+    footer {
+      background: #EBEBEB;
+      border-top: 1px solid #D8D8D8;
+    }
+    .footer-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1400px; margin: 0 auto; padding: 0 5%;
+      min-height: 72px; flex-wrap: wrap; gap: 0;
+    }
+    .footer-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 18px 28px; position: relative; flex-shrink: 0;
+    }
+    .footer-item + .footer-item::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0;
+    }
+    .footer-item svg { flex-shrink: 0; color: #2C2C2C; width: 18px; height: 18px; }
+    .footer-item-text { display: flex; flex-direction: column; line-height: 1.35; }
+    .footer-item-text span { font-size: 0.78rem; font-weight: 500; color: #2C2C2C; white-space: nowrap; }
+    .footer-social-group {
+      display: flex; align-items: center; gap: 18px;
+      padding: 18px 0 18px 28px; position: relative;
+    }
+    .footer-social-group::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0;
+    }
+    .footer-social-group a {
+      display: flex; align-items: center; justify-content: center;
+      color: #2C2C2C; text-decoration: none; transition: color 0.2s, transform 0.2s;
+    }
+    .footer-social-group a:hover { color: var(--azul); transform: translateY(-2px); }
+    .footer-social-group a svg { width: 20px; height: 20px; }
+    .footer-stripe {
+      height: 5px;
+      background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado) 60%, var(--azul) 60%, var(--azul) 100%);
+    }
+
+    /* ===================== WHATSAPP FLUTUANTE ===================== */
+    .wpp-float {
+      position: fixed; bottom: 80px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.40);
+      text-decoration: none; transition: transform 0.25s, box-shadow 0.25s;
+      animation: pulseW 2.5s infinite;
+    }
+    .wpp-float:hover { transform: scale(1.08); box-shadow: 0 8px 30px rgba(37,211,102,0.55); animation: none; }
+    .wpp-float svg { color: white; }
+    .wpp-tip {
+      position: absolute; right: 68px;
+      background: var(--texto-esc); color: var(--branco);
+      font-size: 0.74rem; font-weight: 600;
+      white-space: nowrap; padding: 7px 14px; border-radius: 4px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .wpp-tip::after {
+      content: ''; position: absolute; right: -6px; top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent; border-right: none; border-left-color: var(--texto-esc);
+    }
+    .wpp-float:hover .wpp-tip { opacity: 1; }
+
+    /* ===================== ANIMAÇÕES ===================== */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulseW { 0%,100% { box-shadow:0 4px 20px rgba(37,211,102,0.40); } 50% { box-shadow:0 4px 32px rgba(37,211,102,0.65); } }
+
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.10s} .d2{transition-delay:0.20s} .d3{transition-delay:0.30s}
+    .d4{transition-delay:0.40s} .d5{transition-delay:0.50s} .d6{transition-delay:0.60s}
+
+    /* ===================== HAMBÚRGUER ===================== */
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 42px; height: 42px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+      border-radius: 4px; transition: background 0.2s; z-index: 1100;
+    }
+    .nav-toggle:hover { background: rgba(27,47,110,0.07); }
+    .nav-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--azul); border-radius: 2px;
+      transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===================== RESPONSIVO ===================== */
+    @media(max-width:1024px) {
+      .dif-grid { grid-template-columns: repeat(2, 1fr); }
+      .fotos-grid { grid-template-columns: repeat(2, 1fr); }
+      .mvv-bar { grid-template-columns: 1fr; }
+      .mvv-item + .mvv-item::before { display: none; }
+    }
+    @media(max-width:768px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: flex; flex-direction: column;
+        position: fixed; top: 76px; left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(27,47,110,0.10);
+        box-shadow: 0 8px 32px rgba(27,47,110,0.12);
+        padding: 12px 0 20px; gap: 0; list-style: none;
+        transform: translateY(-110%); opacity: 0; pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.30s ease;
+        z-index: 999;
+      }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block; padding: 14px 6%; font-size: 0.88rem;
+        border-bottom: 1px solid rgba(27,47,110,0.06); letter-spacing: 0.06em;
+      }
+      .nav-links a::after { display: none; }
+      .nav-links a:hover { color: var(--azul); background: rgba(27,47,110,0.04); }
+      .nav-cta { margin: 12px 6% 0 !important; border-radius: 4px !important; text-align: center !important; padding: 14px 22px !important; border-bottom: none !important; }
+
+      .page-hero-content { justify-content: center; }
+      .page-hero-box { max-width: 100%; }
+      .historia-inner { grid-template-columns: 1fr; }
+      .dif-grid { grid-template-columns: 1fr; }
+      .fotos-grid { grid-template-columns: 1fr; }
+      .stats-inner { flex-wrap: wrap; }
+      .stat-item { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.10); }
+      .footer-bar { justify-content: center; }
+      .footer-item { padding: 14px 16px; }
+      .footer-item-text span { font-size: 0.72rem; }
+    }
+    @media(max-width:600px) {
+      .footer-bar { flex-direction: column; align-items: flex-start; padding: 16px 5%; }
+      .footer-item + .footer-item::before, .footer-social-group::before { display: none; }
+      .footer-item { padding: 8px 0; }
+      .footer-social-group { padding: 8px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="arquivos/logo.png" alt="Projeeng"
+        onerror="this.style.display='none'; document.getElementById('logo-txt').style.display='block'">
+      <div id="logo-txt" class="nav-logo-txt" style="display:none">
+        PROJEENG<small>ESTRUTURAS METÁLICAS LTDA</small>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html" class="active">A Empresa</a></li>
+      <li><a href="solucoes.html">Soluções</a></li>
+      <li><a href="obras.html">Obras</a></li>
+      <li><a href="contato.html" class="nav-cta">Solicitar Orçamento</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO INTERNO -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-hero-box">
+        <div class="page-hero-badge">
+          <span></span>Conheça a Projeeng
+        </div>
+        <h1>
+          Tradição, técnica e<br>
+          <em>compromisso</em> com<br>
+          cada projeto
+        </h1>
+        <div class="hero-sep"></div>
+        <p>
+          Somos uma empresa especializada em fabricação e montagem de estruturas metálicas,
+          com fabricação 100% própria, equipe de engenharia interna e controle de qualidade
+          em cada etapa da obra.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRA DE NÚMEROS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item reveal d1">
+        <!-- SUBSTITUIR: dados reais -->
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Anos de Atuação</div>
+      </div>
+      <div class="stat-item reveal d2">
+        <div class="stat-num">120<span>k</span></div>
+        <div class="stat-label">m² Construídos</div>
+      </div>
+      <div class="stat-item reveal d3">
+        <div class="stat-num">340<span>+</span></div>
+        <div class="stat-label">Obras Entregues</div>
+      </div>
+      <div class="stat-item reveal d4">
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Clientes Atendidos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTÓRIA -->
+  <section class="historia">
+    <div class="historia-inner">
+
+      <div class="historia-img-wrap reveal">
+        <!-- SUBSTITUIR: arquivos/sobre-fabrica.jpg — foto da fábrica ou estrutura em produção -->
+        <div class="img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Foto da fábrica / estrutura em produção<br>
+          <code style="font-size:0.62rem;opacity:0.5;font-style:normal">arquivos/sobre-fabrica.jpg</code>
+        </div>
+      </div>
+
+      <div class="reveal d2">
+        <div class="historia-texto-box glass-box">
+          <div class="section-label">Nossa História</div>
+          <h2>De projeto em projeto,<br><em>construindo legado</em></h2>
+          <!-- SUBSTITUIR: texto real com a história da Projeeng, ano de fundação, origem, fundadores -->
+          <p>
+            A Projeeng Estruturas Metálicas nasceu do compromisso de oferecer soluções em aço que
+            combinam engenharia de alta precisão, agilidade de entrega e tratamento exclusivo a cada
+            cliente. Desde a nossa fundação, construímos nossa reputação obra a obra, projeto a projeto.
+          </p>
+          <p>
+            Com sede própria e estrutura fabril completa, controlamos cada etapa do processo — do
+            desenvolvimento do projeto estrutural à montagem final em campo. Isso nos permite garantir
+            prazos, qualidade e segurança em todas as entregas, sem depender de terceiros para o
+            que é essencial.
+          </p>
+          <p>
+            Hoje atendemos clientes em todo o Brasil, com foco em indústrias alimentícias, frigoríficos,
+            laticínios, construtoras e agronegócio — sempre tratando cada projeto como único,
+            porque ele realmente é.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MISSÃO / VISÃO / VALORES -->
+  <section class="mvv">
+    <div class="mvv-inner">
+
+      <div class="section-header-wrap reveal">
+        <div class="section-header-box" style="background:rgba(255,255,255,0.80);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.50);box-shadow:0 4px 24px rgba(27,47,110,0.08);">
+          <div class="section-label center">Quem Somos</div>
+          <h2>Missão, Visão e Valores</h2>
+          <p>Os princípios que guiam cada decisão, cada projeto e cada relação com nossos clientes.</p>
+        </div>
+      </div>
+
+      <div class="mvv-bar reveal">
+
+        <div class="mvv-item">
+          <div class="mvv-item-top"></div>
+          <div class="mvv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+          </div>
+          <h3>Missão</h3>
+          <!-- SUBSTITUIR: missão real da Projeeng -->
+          <p>
+            Oferecer soluções completas em estruturas metálicas com excelência técnica, prazo cumprido
+            e atendimento personalizado, contribuindo para o crescimento sustentável dos nossos clientes
+            e parceiros em todo o Brasil.
+          </p>
+        </div>
+
+        <div class="mvv-item">
+          <div class="mvv-item-top"></div>
+          <div class="mvv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Visão</h3>
+          <!-- SUBSTITUIR: visão real da Projeeng -->
+          <p>
+            Ser reconhecida como referência nacional em estruturas metálicas, pela inovação tecnológica,
+            pela precisão milimétrica das nossas entregas e pela confiança que construímos ao longo
+            de cada obra realizada.
+          </p>
+        </div>
+
+        <div class="mvv-item">
+          <div class="mvv-item-top"></div>
+          <div class="mvv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Valores</h3>
+          <!-- SUBSTITUIR: valores reais da Projeeng -->
+          <p>
+            Comprometimento com o cliente. Transparência em cada etapa. Qualidade sem concessões.
+            Segurança como prioridade absoluta. Respeito às pessoas e ao meio ambiente em tudo
+            o que fazemos.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTRUTURA / FOTOS DA FÁBRICA E EQUIPE -->
+  <section class="equipe">
+    <div class="equipe-inner">
+
+      <div class="section-header-wrap reveal">
+        <div class="section-header-box" style="background:rgba(255,255,255,0.80);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.50);box-shadow:0 4px 24px rgba(27,47,110,0.08);">
+          <div class="section-label center">Nossa Estrutura</div>
+          <h2>Fábrica, equipamentos e equipe</h2>
+          <p>Infraestrutura industrial própria e equipe técnica especializada para garantir qualidade e agilidade em cada projeto.</p>
+        </div>
+      </div>
+
+      <div class="fotos-grid">
+
+        <div class="foto-card reveal d1">
+          <div class="foto-card-top"></div>
+          <div class="foto-img">
+            <!-- SUBSTITUIR: arquivos/sobre-fabrica-interna.jpg — foto interna da fábrica -->
+            <div class="foto-img-lbl">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              arquivos/sobre-fabrica-interna.jpg
+            </div>
+          </div>
+          <div class="foto-body">
+            <h3>Estrutura Fabril Própria</h3>
+            <p>Galpão industrial equipado com maquinário de última geração para corte, dobramento e soldagem de estruturas metálicas com máxima precisão.</p>
+          </div>
+        </div>
+
+        <div class="foto-card reveal d2">
+          <div class="foto-card-top"></div>
+          <div class="foto-img">
+            <!-- SUBSTITUIR: arquivos/sobre-equipamentos.jpg — foto dos equipamentos / maquinário -->
+            <div class="foto-img-lbl">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              arquivos/sobre-equipamentos.jpg
+            </div>
+          </div>
+          <div class="foto-body">
+            <h3>Equipamentos e Tecnologia</h3>
+            <!-- SUBSTITUIR: detalhe real dos equipamentos, ex: frota de munck, ponte rolante, etc. -->
+            <p>Frota própria de equipamentos para movimentação e montagem, incluindo caminhão munck, garantindo logística ágil e independente em campo.</p>
+          </div>
+        </div>
+
+        <div class="foto-card reveal d3">
+          <div class="foto-card-top"></div>
+          <div class="foto-img">
+            <!-- SUBSTITUIR: arquivos/sobre-equipe.jpg — foto da equipe técnica uniformizada -->
+            <div class="foto-img-lbl">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              arquivos/sobre-equipe.jpg
+            </div>
+          </div>
+          <div class="foto-body">
+            <h3>Equipe Técnica Especializada</h3>
+            <p>Engenheiros, projetistas e montadores próprios, capacitados e uniformizados, garantindo padrão de qualidade e segurança do escritório ao canteiro de obras.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS COMPETITIVOS -->
+  <section class="diferenciais-section">
+    <div class="dif-inner">
+
+      <div class="section-header-wrap reveal">
+        <div class="section-header-box" style="background:rgba(255,255,255,0.80);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.50);box-shadow:0 4px 24px rgba(27,47,110,0.08);">
+          <div class="section-label center">Por Que Escolher a Projeeng</div>
+          <h2>Diferenciais que fazem a diferença</h2>
+          <p>O que nos separa de uma empresa comum de estruturas metálicas.</p>
+        </div>
+      </div>
+
+      <div class="dif-grid">
+
+        <div class="dif-card reveal d1">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Fabricação e Engenharia Próprias</h3>
+          <!-- SUBSTITUIR: adaptar conforme realidade da empresa -->
+          <p>Do projeto estrutural à montagem final, tudo é executado pela nossa equipe. Sem terceirização do que é essencial, sem perda de controle sobre qualidade e prazo.</p>
+        </div>
+
+        <div class="dif-card reveal d2">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Precisão Milimétrica</h3>
+          <p>Processos de fabricação com controle dimensional rigoroso, garantindo encaixe perfeito das peças em campo, reduzindo retrabalho e acelerando a montagem.</p>
+        </div>
+
+        <div class="dif-card reveal d3">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3>Frota Própria de Munck</h3>
+          <!-- SUBSTITUIR: confirmar se a Projeeng possui caminhão munck próprio -->
+          <p>Caminhão munck próprio para movimentação e içamento de peças em campo. Autonomia logística que garante agilidade na montagem e redução de custos para o cliente.</p>
+        </div>
+
+        <div class="dif-card reveal d4">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <h3>Controle de Qualidade Rigoroso</h3>
+          <p>Inspeção em todas as etapas — corte, soldagem, pintura e montagem. Cada estrutura é entregue dentro das normas técnicas vigentes, com total rastreabilidade do processo.</p>
+        </div>
+
+        <div class="dif-card reveal d5">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Compromisso com o Prazo</h3>
+          <p>Planejamento detalhado desde a assinatura do contrato. Acompanhamento diário do cronograma para garantir que cada fase seja entregue no prazo combinado.</p>
+        </div>
+
+        <div class="dif-card reveal d6">
+          <div class="dif-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Melhor Custo-Benefício</h3>
+          <p>Fabricação própria elimina intermediários e reduz custos sem abrir mão da qualidade. O cliente paga pelo que recebe, com total transparência no orçamento.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-pattern"></div>
+    <div class="cta-content">
+      <div class="section-label center">Vamos Construir Juntos</div>
+      <h2>Conheça nossa estrutura e solicite seu orçamento</h2>
+      <p>Entre em contato com nossa equipe técnica. Analisamos seu projeto e apresentamos a melhor solução em estruturas metálicas para o seu negócio.</p>
+      <div class="cta-btns">
+        <a href="contato.html" class="btn-cta-p">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Solicitar Orçamento
+        </a>
+        <a href="obras.html" class="btn-cta-s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Ver Nossas Obras
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <div class="footer-bar">
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div class="footer-item-text">
+          <!-- SUBSTITUIR: endereço real -->
+          <span>Rua das Estruturas, 123</span>
+          <span>Bairro Industrial</span>
+          <span>Cidade - UF, 00000-000</span>
+        </div>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+        </svg>
+        <div class="footer-item-text">
+          <!-- SUBSTITUIR: telefones reais -->
+          <span>(00) 0000-0000</span>
+          <span>(00) 00000-0000</span>
+        </div>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>contato@projeeng.com.br</span>
+        </div>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>www.projeeng.com.br</span>
+        </div>
+      </div>
+
+      <div class="footer-social-group">
+        <a href="#" target="_blank" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/projeengestruturasmetalicas/" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a href="#" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+  <div class="footer-stripe"></div>
+
+  <!-- WHATSAPP FLUTUANTE -->
+  <a href="https://wa.me/5549988546393" target="_blank" class="wpp-float">
+    <div class="wpp-tip">Solicitar orçamento</div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Menu hambúrguer mobile
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Navbar shadow on scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.88;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add('visible');
+      });
+    }
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    checkReveal();
+  </script>
+</body>
+</html>
