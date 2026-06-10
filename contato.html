@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contato e Orçamento | Projeeng Estruturas Metálicas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== CONFIGURAÇÕES GLOBAIS ===================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul:        #1B2F6E;
+      --azul-md:     #223A8A;
+      --dourado:     #A0722A;
+      --dourado-clr: #C49240;
+      --branco:      #FFFFFF;
+      --cinza-bg:    #F5F5F5;
+      --cinza-borda: #E0E0E0;
+      --texto-esc:   #1A1A2E;
+      --texto-med:   #3D3D55;
+      --texto-suave: #7A7A90;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--texto-esc);
+      overflow-x: hidden;
+      background-image: url('arquivos/fundo5.png');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 76px;
+      background: rgba(255,255,255,0.88);
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(27,47,110,0.07); transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(27,47,110,0.12); }
+
+    .nav-logo img { height: 110px; display: block; }
+    .nav-logo-txt { font-weight: 900; font-size: 1.3rem; color: var(--azul); letter-spacing: -0.02em; line-height: 1; }
+    .nav-logo-txt small { display: block; font-size: 0.52rem; font-weight: 600; letter-spacing: 0.20em; color: var(--texto-suave); }
+
+    .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.80rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--texto-med); transition: color 0.25s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--dourado); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--azul); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--azul); }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--azul) !important; color: var(--branco) !important;
+      padding: 10px 22px !important; border-radius: 4px;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--dourado) !important; transform: translateY(-1px); }
+
+    /* ===================== HERO DA PÁGINA ===================== */
+    .page-hero {
+      position: relative; min-height: 40vh; display: flex; align-items: flex-end;
+      padding: 0 6% 40px; background: transparent; padding-top: 76px;
+    }
+    .page-hero-content { display: flex; justify-content: flex-end; width: 100%; padding-top: 60px; }
+    .page-hero-box {
+      max-width: 580px; background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px; padding: 36px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10); animation: fadeUp 0.9s ease both;
+    }
+    .page-hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(160,114,42,0.10); border: 1px solid rgba(160,114,42,0.30);
+      border-radius: 100px; padding: 6px 16px; font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--dourado); margin-bottom: 20px;
+    }
+    .page-hero-badge span { width: 6px; height: 6px; background: var(--dourado); border-radius: 50%; display: inline-block; }
+    .page-hero-box h1 {
+      font-size: clamp(1.9rem, 3.2vw, 2.9rem); font-weight: 900; line-height: 1.12;
+      color: var(--texto-esc); letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .page-hero-box h1 em { font-style: normal; color: var(--azul); }
+    .hero-sep { width: 56px; height: 3px; background: linear-gradient(90deg, var(--azul), var(--dourado)); border-radius: 2px; margin-bottom: 18px; }
+    .page-hero-box p { font-size: 0.97rem; line-height: 1.76; color: var(--texto-med); }
+
+    /* ===================== LABELS E CAIXAS ===================== */
+    .glass-box {
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px); border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px; font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--dourado); margin-bottom: 16px;
+    }
+    .section-label::before { content: ''; width: 28px; height: 2px; background: var(--dourado); border-radius: 1px; }
+
+    /* ===================== SESSÃO CONTATO ===================== */
+    .contato-section { padding: 40px 6% 100px; }
+    .contato-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+    /* Info e FAQ (Lado Esquerdo) */
+    .contato-info { margin-bottom: 40px; }
+    .contato-info h2 { font-size: 2rem; font-weight: 800; color: var(--texto-esc); margin-bottom: 24px; letter-spacing: -0.02em; }
+    
+    .info-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .info-icon { width: 44px; height: 44px; background: rgba(27,47,110,0.07); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-icon svg { color: var(--azul); }
+    .info-text h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--texto-med); margin-bottom: 4px; }
+    .info-text p { font-size: 0.95rem; color: var(--texto-esc); font-weight: 500; line-height: 1.5; }
+
+    /* FAQ Accordion */
+    .faq-wrapper { margin-top: 40px; }
+    .faq-wrapper h3 { font-size: 1.2rem; font-weight: 800; color: var(--texto-esc); margin-bottom: 16px; }
+    .faq-item { background: rgba(255,255,255,0.7); border: 1px solid var(--cinza-borda); border-radius: 4px; margin-bottom: 12px; overflow: hidden; transition: 0.3s; }
+    .faq-item:hover { border-color: var(--dourado); }
+    .faq-item summary { padding: 18px 20px; font-weight: 700; font-size: 0.9rem; color: var(--texto-esc); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 1.4rem; color: var(--azul); font-weight: 400; transition: transform 0.3s; line-height: 1; }
+    .faq-item[open] summary { background: rgba(27,47,110,0.03); color: var(--azul); }
+    .faq-item[open] summary::after { transform: rotate(45deg); color: var(--dourado); }
+    .faq-content { padding: 0 20px 20px; font-size: 0.85rem; color: var(--texto-med); line-height: 1.6; border-top: 1px solid transparent; }
+    .faq-item[open] .faq-content { border-top-color: rgba(0,0,0,0.05); padding-top: 16px; }
+
+    /* Formulário Inteligente (Lado Direito) */
+    .form-wrapper { padding: 40px; }
+    .form-wrapper h2 { font-size: 1.6rem; font-weight: 800; color: var(--texto-esc); margin-bottom: 10px; letter-spacing: -0.02em; }
+    .form-wrapper p.desc { font-size: 0.9rem; color: var(--texto-med); margin-bottom: 30px; line-height: 1.6; }
+    
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--texto-esc); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-control { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.6); border: 1px solid var(--cinza-borda); border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--texto-esc); transition: all 0.3s; }
+    .form-control:focus { outline: none; border-color: var(--azul); background: #fff; box-shadow: 0 0 0 3px rgba(27,47,110,0.1); }
+    textarea.form-control { resize: vertical; min-height: 120px; }
+    
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    
+    .btn-submit {
+      width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--azul); color: var(--branco); padding: 18px 30px; border-radius: 4px; border: none; cursor: pointer;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      transition: background 0.25s, transform 0.2s; box-shadow: 0 4px 18px rgba(27,47,110,0.22); margin-top: 10px;
+    }
+    .btn-submit:hover { background: var(--dourado); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(160,114,42,0.28); }
+
+    /* Alerta Anexo */
+    .alerta-anexo { font-size: 0.75rem; color: var(--texto-suave); margin-top: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px;}
+    .alerta-anexo svg { color: var(--dourado); }
+
+    /* ===================== MAPA ===================== */
+    .map-section { padding: 0 6% 100px; }
+    .map-inner { max-width: 1240px; margin: 0 auto; }
+    .map-container { width: 100%; height: 450px; border-radius: 6px; overflow: hidden; padding: 10px; }
+    .map-container iframe { width: 100%; height: 100%; border: none; border-radius: 4px; filter: grayscale(20%) contrast(1.1); }
+
+    /* ===================== RODAPÉ ===================== */
+    footer { background: #EBEBEB; border-top: 1px solid #D8D8D8; }
+    .footer-bar { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; padding: 0 5%; min-height: 72px; flex-wrap: wrap; gap: 0; }
+    .footer-item { display: flex; align-items: center; gap: 10px; padding: 18px 28px; position: relative; flex-shrink: 0; }
+    .footer-item + .footer-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0; }
+    .footer-item svg { flex-shrink: 0; color: #2C2C2C; width: 18px; height: 18px; }
+    .footer-item-text { display: flex; flex-direction: column; line-height: 1.35; }
+    .footer-item-text span { font-size: 0.78rem; font-weight: 500; color: #2C2C2C; white-space: nowrap; }
+    .footer-social-group { display: flex; align-items: center; gap: 18px; padding: 18px 0 18px 28px; position: relative; }
+    .footer-social-group::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 36px; width: 1px; background: #C0C0C0; }
+    .footer-social-group a { display: flex; align-items: center; justify-content: center; color: #2C2C2C; text-decoration: none; transition: color 0.2s, transform 0.2s; }
+    .footer-social-group a:hover { color: var(--azul); transform: translateY(-2px); }
+    .footer-social-group a svg { width: 20px; height: 20px; }
+    .footer-stripe { height: 5px; background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado) 60%, var(--azul) 60%, var(--azul) 100%); }
+
+    /* ===================== WHATSAPP FLUTUANTE (Padronizado) ===================== */
+    .wpp-float { 
+        position: fixed; bottom: 80px; right: 28px; z-index: 9999; 
+        width: 58px; height: 58px; background: #25D366; border-radius: 50%; 
+        display: flex; align-items: center; justify-content: center; 
+        box-shadow: 0 4px 20px rgba(37,211,102,0.40); text-decoration: none; 
+        transition: transform 0.25s, box-shadow 0.25s; animation: pulseW_padr 2.5s infinite; 
+    }
+    .wpp-float:hover { transform: scale(1.08); box-shadow: 0 8px 30px rgba(37,211,102,0.55); animation: none; }
+    .wpp-float svg { color: white; }
+    @keyframes pulseW_padr { 0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.40); } 50% { box-shadow: 0 4px 32px rgba(37,211,102,0.65); } }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.10s} .d2{transition-delay:0.20s}
+
+    /* Hambúrguer */
+    .nav-toggle { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 42px; height: 42px; background: none; border: none; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s; z-index: 1100; }
+    .nav-toggle:hover { background: rgba(27,47,110,0.07); }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--azul); border-radius: 2px; transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Responsivo */
+    @media(max-width:900px) {
+      .contato-inner { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+    @media(max-width:768px) {
+      .nav-toggle { display: flex; }
+      .nav-links { display: flex; flex-direction: column; position: fixed; top: 76px; left: 0; right: 0; background: rgba(255,255,255,0.97); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 2px solid rgba(27,47,110,0.10); box-shadow: 0 8px 32px rgba(27,47,110,0.12); padding: 12px 0 20px; gap: 0; list-style: none; transform: translateY(-110%); opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.30s ease; z-index: 999; }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-links a { display: block; padding: 14px 6%; border-bottom: 1px solid rgba(27,47,110,0.06); }
+      .nav-cta { margin: 12px 6% 0 !important; text-align: center !important; }
+      .page-hero-content { justify-content: center; }
+      .form-wrapper { padding: 30px 20px; }
+      
+      .footer-bar { flex-direction: column; align-items: flex-start; padding: 16px 5%; }
+      .footer-item + .footer-item::before, .footer-social-group::before { display: none; }
+      .footer-item, .footer-social-group { padding: 8px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="arquivos/logo.png" alt="Projeeng" onerror="this.style.display='none'; document.getElementById('logo-txt').style.display='block'">
+      <div id="logo-txt" class="nav-logo-txt" style="display:none">PROJEENG<small>ESTRUTURAS METÁLICAS LTDA</small></div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">A Empresa</a></li>
+      <li><a href="solucoes.html">Soluções</a></li>
+      <li><a href="obras.html">Obras</a></li>
+      <li><a href="contato.html" class="active nav-cta">Solicitar Orçamento</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-hero-box">
+        <div class="page-hero-badge">
+          <span></span>Fale com a nossa Engenharia
+        </div>
+        <h1>
+          Pronto para tirar o seu<br>
+          <em>projeto</em> do papel?
+        </h1>
+        <div class="hero-sep"></div>
+        <p>
+          Entre em contato para solicitar orçamentos, tirar dúvidas técnicas ou enviar a sua planta para análise especializada.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contato-section">
+    <div class="contato-inner">
+      
+      <div class="contato-info-faq glass-box reveal d1" style="padding: 40px;">
+        <div class="contato-info">
+          <div class="section-label">Canais de Atendimento</div>
+          <h2>Estamos à disposição</h2>
+          
+          <div class="info-item">
+            <div class="info-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg></div>
+            <div class="info-text">
+              <h3>Telefone / WhatsApp</h3>
+              <p>(49) 98854-6393<br>(00) 0000-0000</p>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="info-text">
+              <h3>E-mail Comercial</h3>
+              <p>contato@projeeng.com.br</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="info-text">
+              <h3>Endereço</h3>
+              <p>Av. Sen. Attilio Fontana, 281 D<br>Chapecó - SC</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-wrapper">
+          <h3>Perguntas Frequentes</h3>
+          
+          <details class="faq-item">
+            <summary>Preciso ter um projeto estrutural pronto para cotar?</summary>
+            <div class="faq-content">
+              Não necessariamente. Se você já tem um projeto arquitetônico ou uma ideia clara das dimensões, nossa equipe de engenharia pode desenvolver o projeto estrutural e apresentar a melhor solução técnica para a sua necessidade.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Como a Projeeng garante os prazos de entrega?</summary>
+            <div class="faq-content">
+              Possuímos fabricação 100% própria e equipe de montagem interna. Ao não dependermos de terceiros para as etapas cruciais, garantimos o cumprimento rigoroso do cronograma acordado em contrato.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Qual o prazo médio de instalação em campo?</summary>
+            <div class="faq-content">
+              A montagem da estrutura metálica é de 30% a 50% mais rápida que a alvenaria convencional, pois as peças já chegam prontas da fábrica. O prazo exato varia conforme a metragem e complexidade da obra.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Vocês oferecem garantia das estruturas?</summary>
+            <div class="faq-content">
+              Sim. Todas as nossas obras são entregues em conformidade com as normas técnicas vigentes e acompanham garantia estrutural atestada por nossa equipe de engenharia.
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="form-wrapper glass-box reveal d2">
+        <div class="section-label">Solicitação Rápida</div>
+        <h2>Análise de Projeto</h2>
+        <p class="desc">Preencha os dados abaixo. Eles serão formatados e enviados diretamente para o WhatsApp da nossa engenharia para um atendimento ágil.</p>
+
+        <form id="formWhatsApp" onsubmit="enviarParaWhatsApp(event)">
+          <div class="form-group">
+            <label for="nome">Nome Completo *</label>
+            <input type="text" id="nome" class="form-control" placeholder="Seu nome" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" class="form-control" placeholder="Nome da empresa (opcional)">
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp *</label>
+              <input type="tel" id="telefone" class="form-control" placeholder="(00) 00000-0000" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo">Tipo de Projeto *</label>
+            <select id="tipo" class="form-control" required>
+              <option value="" disabled selected>Selecione uma opção...</option>
+              <option value="Galpão Industrial">Galpão Industrial</option>
+              <option value="Cobertura Metálica">Cobertura Metálica</option>
+              <option value="Mezanino">Mezanino</option>
+              <option value="Retrofit / Reforço">Retrofit ou Reforço</option>
+              <option value="Projeto Arquitetônico">Projeto Arquitetônico</option>
+              <option value="Outro">Outro (Especificar na mensagem)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mensagem">Detalhes do Projeto / Dimensões *</label>
+            <textarea id="mensagem" class="form-control" placeholder="Descreva brevemente a sua necessidade, dimensões estimadas ou local da obra..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar para Análise Técnica
+          </button>
+          
+          <div class="alerta-anexo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            Se possuir uma planta ou projeto em PDF, você poderá enviá-lo diretamente na conversa do WhatsApp.
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section reveal">
+    <div class="map-inner">
+      <div class="map-container glass-box">
+        <iframe src="https://maps.google.com/maps?q=Av.%20Sen.%20Attilio%20Fontana,%20281%20D,%20Chapec%C3%B3%20-%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bar">
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="footer-item-text">
+          <span>Av. Sen. Attilio Fontana, 281 D</span>
+          <span>Chapecó - SC</span>
+        </div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        <div class="footer-item-text">
+          <span>(49) 98854-6393</span>
+          <span>(00) 00000-0000</span>
+        </div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div class="footer-item-text"><span>contato@projeeng.com.br</span></div>
+      </div>
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="footer-item-text"><span>www.projeeng.com.br</span></div>
+      </div>
+      <div class="footer-social-group">
+        <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.instagram.com/projeengestruturasmetalicas/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-stripe"></div>
+
+  <a href="https://wa.me/5549988546393" target="_blank" class="wpp-float">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Função para enviar os dados do formulário para o WhatsApp
+    function enviarParaWhatsApp(event) {
+      event.preventDefault(); // Impede o recarregamento da página
+
+      const nome = document.getElementById('nome').value;
+      const empresa = document.getElementById('empresa').value;
+      const telefone = document.getElementById('telefone').value;
+      const tipo = document.getElementById('tipo').value;
+      const mensagem = document.getElementById('mensagem').value;
+
+      // Formatação da mensagem para o WhatsApp
+      let texto = `Olá, equipe Projeeng! Vim pelo site e gostaria de solicitar uma análise técnica.\n\n`;
+      texto += `*Nome:* ${nome}\n`;
+      if (empresa) {
+        texto += `*Empresa:* ${empresa}\n`;
+      }
+      texto += `*Telefone:* ${telefone}\n`;
+      texto += `*Tipo de Projeto:* ${tipo}\n`;
+      texto += `*Detalhes do Projeto:* ${mensagem}`;
+
+      // Codifica o texto para formato de URL e insere o número
+      const numeroWhatsApp = "5549988546393"; 
+      const urlBase = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+
+      // Abre a janela do WhatsApp
+      window.open(urlBase, '_blank');
+    }
+
+    // Menu Hambúrguer
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.classList.remove('open'); });
+    });
+
+    // Scroll Navbar
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+
+    // Animações Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.88;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add('visible');
+      });
+    }
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    checkReveal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projeeng Estruturas Metálicas | Engenharia de Alta Performance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul:        #1B2F6E;
+      --azul-md:     #223A8A;
+      --dourado:     #A0722A;
+      --dourado-clr: #C49240;
+      --branco:      #FFFFFF;
+      --cinza-bg:    #F5F5F5;
+      --cinza-borda: #E0E0E0;
+      --texto-esc:   #1A1A2E;
+      --texto-med:   #3D3D55;
+      --texto-suave: #7A7A90;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--texto-esc);
+      overflow-x: hidden;
+      /* FUNDO PARALLAX GLOBAL — aponta para a imagem na pasta arquivos */
+      background-image: url('arquivos/fundo.png');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0; /* fallback enquanto imagem carrega */
+    }
+
+    /* ===================== NAVBAR ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 76px;
+      background: rgba(255,255,255,0.88);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(27,47,110,0.07);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(27,47,110,0.12); }
+
+    .nav-logo img {
+      height: 110px;
+      display: block;
+    }
+    /* fallback se logo não carregar */
+    .nav-logo-txt {
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--azul);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .nav-logo-txt small {
+      display: block;
+      font-size: 0.52rem;
+      font-weight: 600;
+      letter-spacing: 0.20em;
+      color: var(--texto-suave);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.80rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--texto-med);
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--dourado);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--azul); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--azul) !important;
+      color: var(--branco) !important;
+      padding: 10px 22px !important;
+      border-radius: 4px;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--dourado) !important; transform: translateY(-1px); }
+
+    /* ===================== SEÇÕES (flutuam sobre o fundo) ===================== */
+    /*
+      Cada seção tem um fundo semitransparente branco/claro
+      para o conteúdo ficar legível enquanto o fundo parallax
+      aparece nas "frestas" entre elas e nas margens.
+    */
+
+    /* --- HERO --- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: transparent;
+    }
+
+    .hero-content {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 120px 6% 80px;
+    }
+
+    .hero-text {
+      max-width: 540px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(160,114,42,0.10);
+      border: 1px solid rgba(160,114,42,0.30);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.70rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      margin-bottom: 24px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--dourado); border-radius: 50%; display: inline-block; }
+
+    /* Glass box — envolve o texto do hero para legibilidade sem overlay na página */
+    .hero-text-box {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px;
+      padding: 40px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.10;
+      color: var(--texto-esc);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero-text h1 em { font-style: normal; color: var(--azul); }
+    .hero-text h1 strong { font-style: normal; color: var(--dourado); font-weight: 900; }
+
+    .hero-sep {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--dourado));
+      border-radius: 2px;
+      margin-bottom: 22px;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      line-height: 1.78;
+      color: var(--texto-med);
+      margin-bottom: 36px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--azul); color: var(--branco);
+      padding: 15px 30px; border-radius: 4px;
+      font-size: 0.83rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 4px 18px rgba(27,47,110,0.22);
+    }
+    .btn-primary:hover { background: var(--dourado); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(160,114,42,0.28); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--azul);
+      padding: 15px 28px; border-radius: 4px;
+      border: 2px solid var(--azul);
+      font-size: 0.83rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover { background: var(--azul); color: var(--branco); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0.45;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint span { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--azul); font-weight: 600; }
+
+    /* --- BARRA STATS (azul sólido, sem transparência — ancora visualmente) --- */
+    .stats-bar {
+      background: var(--azul);
+    }
+    .stats-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 6%;
+    }
+    .stat-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 38px 20px;
+      border-right: 1px solid rgba(255,255,255,0.10);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.9rem; font-weight: 700;
+      color: var(--branco); line-height: 1;
+    }
+    .stat-num span { color: var(--dourado-clr); }
+    .stat-label { font-size: 0.70rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.50); margin-top: 6px; }
+
+    /* --- SOBRE --- */
+    .sobre {
+      background: transparent;
+      padding: 100px 6%;
+    }
+    .sobre-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .sobre-texto-box {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 6px;
+      padding: 40px 44px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 8px 40px rgba(27,47,110,0.10);
+    }
+
+    .sobre-img-wrap { position: relative; }
+    .sobre-img-wrap img { width: 100%; height: 480px; object-fit: cover; border-radius: 2px; display: block; }
+    .img-placeholder {
+      width: 100%; height: 480px;
+      background: rgba(245,245,245,0.95);
+      border-radius: 2px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; border: 2px dashed var(--cinza-borda);
+      color: var(--texto-suave);
+      font-size: 0.76rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 24px;
+    }
+    .sobre-img-wrap::before {
+      content: '';
+      position: absolute; top: -16px; left: -16px;
+      width: 72px; height: 72px;
+      border-top: 3px solid var(--dourado);
+      border-left: 3px solid var(--dourado);
+      border-radius: 2px; z-index: 1;
+    }
+    .sobre-img-wrap::after {
+      content: '';
+      position: absolute; bottom: -16px; right: -16px;
+      width: 72px; height: 72px;
+      border-bottom: 3px solid var(--azul);
+      border-right: 3px solid var(--azul);
+      border-radius: 2px;
+    }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dourado); margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: ''; width: 28px; height: 2px;
+      background: var(--dourado); border-radius: 1px;
+    }
+
+    .sobre-texto h2 {
+      font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+      font-weight: 800; line-height: 1.18;
+      color: var(--texto-esc); margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .sobre-texto h2 em { font-style: normal; color: var(--azul); }
+    .sobre-texto p { font-size: 0.96rem; line-height: 1.82; color: var(--texto-med); margin-bottom: 16px; }
+
+    .diferenciais { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+    .dif-item { display: flex; align-items: flex-start; gap: 12px; }
+    .dif-icon {
+      flex-shrink: 0; width: 36px; height: 36px;
+      background: rgba(27,47,110,0.07); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dif-icon svg { color: var(--azul); }
+    .dif-item p { font-size: 0.82rem; font-weight: 600; color: var(--texto-esc); margin: 0; line-height: 1.4; }
+    .dif-item span { font-size: 0.73rem; font-weight: 400; color: var(--texto-suave); display: block; margin-top: 2px; }
+
+    /* --- SERVIÇOS --- */
+    .servicos {
+      background: transparent;
+      padding: 100px 6%;
+    }
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+    .section-header-box {
+      display: inline-block;
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 6px;
+      padding: 28px 40px;
+      border: 1px solid rgba(255,255,255,0.50);
+      box-shadow: 0 4px 24px rgba(27,47,110,0.08);
+      width: 100%;
+    }
+    .section-header .section-label { justify-content: center; }
+    .section-header .section-label::after { content: ''; width: 28px; height: 2px; background: var(--dourado); border-radius: 1px; }
+    .section-header h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); font-weight: 800; color: var(--texto-esc); letter-spacing: -0.02em; margin-bottom: 14px; }
+    .section-header p { font-size: 0.95rem; color: var(--texto-suave); line-height: 1.7; }
+
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px; max-width: 1240px; margin: 0 auto;
+    }
+    .servico-card {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(27,47,110,0.10);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .servico-card:hover { box-shadow: 0 10px 40px rgba(27,47,110,0.16); transform: translateY(-5px); }
+    .servico-card-top { height: 3px; background: linear-gradient(90deg, var(--azul), var(--dourado)); }
+    .servico-img {
+      width: 100%; height: 190px;
+      background: var(--cinza-bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .servico-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .servico-img-lbl {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      color: var(--texto-suave); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.10em; text-transform: uppercase; text-align: center; padding: 16px;
+    }
+    .servico-body { padding: 22px 24px; }
+    .servico-body h3 { font-size: 0.97rem; font-weight: 700; color: var(--texto-esc); margin-bottom: 8px; }
+    .servico-body p { font-size: 0.82rem; line-height: 1.65; color: var(--texto-suave); }
+
+    /* --- DEPOIMENTOS --- */
+    .depoimentos {
+      background: transparent;
+      padding: 100px 6%;
+    }
+    .depo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; max-width: 1240px; margin: 0 auto; }
+    .depo-card {
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 4px; padding: 32px;
+      border-left: 4px solid var(--dourado);
+      box-shadow: 0 4px 24px rgba(27,47,110,0.10);
+      position: relative;
+    }
+    .depo-card::before {
+      content: '"'; position: absolute; top: 12px; right: 22px;
+      font-family: Georgia,serif; font-size: 5rem;
+      color: rgba(27,47,110,0.05); line-height: 1;
+    }
+    .estrelas { display: flex; gap: 3px; margin-bottom: 14px; }
+    .estrelas svg { color: #F4B400; }
+    .depo-card p { font-size: 0.87rem; line-height: 1.72; color: var(--texto-med); margin-bottom: 20px; font-style: italic; }
+    .depo-autor { display: flex; align-items: center; gap: 12px; }
+    .depo-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--azul); display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 700; color: var(--branco); flex-shrink: 0;
+    }
+    .depo-nome { font-size: 0.84rem; font-weight: 700; color: var(--texto-esc); }
+    .depo-empresa { font-size: 0.73rem; color: var(--texto-suave); }
+
+    /* --- CTA — azul sólido, ancora o final do parallax --- */
+    .cta-section {
+      position: relative;
+      background: var(--azul);
+      padding: 100px 6%;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--dourado), var(--azul-md), var(--dourado));
+    }
+    .cta-pattern {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+      background-size: 48px 48px;
+    }
+    .cta-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .cta-content .section-label { color: var(--dourado-clr); justify-content: center; }
+    .cta-content .section-label::before { background: var(--dourado-clr); }
+    .cta-content h2 { font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-weight: 800; color: var(--branco); letter-spacing: -0.02em; line-height: 1.18; margin-bottom: 18px; }
+    .cta-content p { font-size: 1rem; color: rgba(255,255,255,0.68); line-height: 1.72; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-p {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--dourado); color: var(--branco);
+      padding: 16px 36px; border-radius: 4px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(160,114,42,0.35);
+    }
+    .btn-cta-p:hover { background: var(--dourado-clr); transform: translateY(-2px); }
+    .btn-cta-s {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--branco);
+      padding: 16px 30px; border-radius: 4px;
+      border: 2px solid rgba(255,255,255,0.35);
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .btn-cta-s:hover { border-color: var(--branco); background: rgba(255,255,255,0.08); }
+
+    /* --- RODAPÉ --- */
+    footer {
+      background: #EBEBEB;
+      border-top: 1px solid #D8D8D8;
+    }
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      min-height: 72px;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 28px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .footer-item + .footer-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      height: 36px;
+      width: 1px;
+      background: #C0C0C0;
+    }
+    .footer-item svg {
+      flex-shrink: 0;
+      color: #2C2C2C;
+      width: 18px;
+      height: 18px;
+    }
+    .footer-item-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+    .footer-item-text span {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #2C2C2C;
+      white-space: nowrap;
+    }
+    .footer-social-group {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 0 18px 28px;
+      position: relative;
+    }
+    .footer-social-group::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      height: 36px;
+      width: 1px;
+      background: #C0C0C0;
+    }
+    .footer-social-group a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2C2C2C;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .footer-social-group a:hover { color: var(--azul); transform: translateY(-2px); }
+    .footer-social-group a svg { width: 20px; height: 20px; }
+    .footer-stripe { height: 5px; background: linear-gradient(90deg, var(--dourado) 0%, var(--dourado) 60%, var(--azul) 60%, var(--azul) 100%); }
+
+    @media(max-width: 900px) {
+      .footer-bar { justify-content: center; }
+      .footer-item { padding: 14px 16px; }
+      .footer-item-text span { font-size: 0.72rem; }
+    }
+    @media(max-width: 600px) {
+      .footer-bar { flex-direction: column; align-items: flex-start; padding: 16px 5%; }
+      .footer-item + .footer-item::before,
+      .footer-social-group::before { display: none; }
+      .footer-item { padding: 8px 0; }
+      .footer-social-group { padding: 8px 0; }
+    }
+
+    /* --- WHATSAPP FLUTUANTE --- */
+    .wpp-float {
+      position: fixed; bottom: 80px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.40);
+      text-decoration: none; transition: transform 0.25s, box-shadow 0.25s;
+      animation: pulseW 2.5s infinite;
+    }
+    .wpp-float:hover { transform: scale(1.08); box-shadow: 0 8px 30px rgba(37,211,102,0.55); animation: none; }
+    .wpp-float svg { color: white; }
+    .wpp-tip {
+      position: absolute; right: 68px;
+      background: var(--texto-esc); color: var(--branco);
+      font-size: 0.74rem; font-weight: 600;
+      white-space: nowrap; padding: 7px 14px; border-radius: 4px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .wpp-tip::after {
+      content: ''; position: absolute; right: -6px; top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent; border-right: none; border-left-color: var(--texto-esc);
+    }
+    .wpp-float:hover .wpp-tip { opacity: 1; }
+
+    /* --- ANIMAÇÕES --- */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes bounce { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(8px); } }
+    @keyframes pulseW { 0%,100% { box-shadow:0 4px 20px rgba(37,211,102,0.40); } 50% { box-shadow:0 4px 32px rgba(37,211,102,0.65); } }
+
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.10s} .d2{transition-delay:0.20s} .d3{transition-delay:0.30s}
+    .d4{transition-delay:0.40s} .d5{transition-delay:0.50s} .d6{transition-delay:0.60s}
+
+    /* --- HAMBÚRGUER --- */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      z-index: 1100;
+    }
+    .nav-toggle:hover { background: rgba(27,47,110,0.07); }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--azul);
+      border-radius: 2px;
+      transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease;
+      transform-origin: center;
+    }
+    /* Estado "X" quando aberto */
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* --- RESPONSIVO --- */
+    @media(max-width:1024px){
+      .servicos-grid{grid-template-columns:repeat(2,1fr);}
+      .depo-grid{grid-template-columns:repeat(2,1fr);}
+      .footer-main{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:768px){
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 76px; left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(27,47,110,0.10);
+        box-shadow: 0 8px 32px rgba(27,47,110,0.12);
+        padding: 12px 0 20px;
+        gap: 0;
+        list-style: none;
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.30s ease;
+        z-index: 999;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 14px 6%;
+        font-size: 0.88rem;
+        border-bottom: 1px solid rgba(27,47,110,0.06);
+        letter-spacing: 0.06em;
+      }
+      .nav-links a::after { display: none; }
+      .nav-links a:hover { color: var(--azul); background: rgba(27,47,110,0.04); }
+      .nav-cta {
+        margin: 12px 6% 0 !important;
+        border-radius: 4px !important;
+        text-align: center !important;
+        padding: 14px 22px !important;
+        border-bottom: none !important;
+      }
+
+      .hero-content{justify-content:center; padding:120px 5% 80px;}
+      .hero-text{text-align:center;}
+      .hero-btns{justify-content:center;}
+      .stats-inner{flex-wrap:wrap;}
+      .stat-item{flex:0 0 50%; border-right:none; border-bottom:1px solid rgba(255,255,255,0.10);}
+      .sobre-inner{grid-template-columns:1fr;}
+      .servicos-grid{grid-template-columns:1fr;}
+      .depo-grid{grid-template-columns:1fr;}
+      .footer-main{grid-template-columns:1fr;}
+      .footer-bottom{flex-direction:column; gap:12px; text-align:center;}
+      .diferenciais{grid-template-columns:1fr;}
+      .hero{background: linear-gradient(180deg,rgba(255,255,255,0.60) 0%,rgba(255,255,255,0.92) 100%);}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="arquivos/logo.png" alt="Projeeng"
+        onerror="this.style.display='none'; document.getElementById('logo-txt').style.display='block'">
+      <div id="logo-txt" class="nav-logo-txt" style="display:none">
+        PROJEENG<small>ESTRUTURAS METÁLICAS LTDA</small>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">A Empresa</a></li>
+      <li><a href="solucoes.html">Soluções</a></li>
+      <li><a href="obras.html">Obras</a></li>
+      <li><a href="contato.html" class="nav-cta">Solicitar Orçamento</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-text-box">
+        <div class="hero-badge">
+          <span></span>Estruturas Metálicas de Alta Performance
+        </div>
+        <h1>
+          Engenharia que<br>
+          <em>sustenta</em> o seu<br>
+          <strong>negócio</strong>
+        </h1>
+        <div class="hero-sep"></div>
+        <p>
+          Fabricação e montagem de estruturas metálicas com precisão milimétrica,
+          tecnologia de ponta e equipe de engenharia própria. Do projeto à entrega,
+          cada obra é tratada com exclusividade.
+        </p>
+        <div class="hero-btns">
+          <a href="contato.html" class="btn-primary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Solicitar Orçamento
+          </a>
+          <a href="obras.html" class="btn-secondary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Ver Portfólio
+          </a>
+        </div>
+        </div><!-- fim hero-text-box -->
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Rolar</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item reveal d1">
+        <!-- SUBSTITUIR: dados reais -->
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Anos de Atuação</div>
+      </div>
+      <div class="stat-item reveal d2">
+        <div class="stat-num">120<span>k</span></div>
+        <div class="stat-label">m² Construídos</div>
+      </div>
+      <div class="stat-item reveal d3">
+        <div class="stat-num">340<span>+</span></div>
+        <div class="stat-label">Obras Entregues</div>
+      </div>
+      <div class="stat-item reveal d4">
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Clientes Atendidos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section class="sobre">
+    <div class="sobre-inner">
+      <div class="sobre-img-wrap reveal">
+        <!-- SUBSTITUIR: arquivos/sobre-fabrica.jpg -->
+        <div class="img-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Foto da fábrica / equipe técnica<br>
+          <code style="font-size:0.62rem;opacity:0.5;font-style:normal">arquivos/sobre-fabrica.jpg</code>
+        </div>
+      </div>
+      <div class="sobre-texto">
+        <div class="sobre-texto-box">
+        <div class="section-label">Sobre a Projeeng</div>
+        <h2>Fabricação própria.<br><em>Qualidade controlada.</em><br>Entrega garantida.</h2>
+        <p>A Projeeng Estruturas Metálicas nasceu da vocação de transformar projetos ambiciosos em realidade. Com fabricação 100% própria, controle de qualidade interno e equipe de engenharia especializada, entregamos estruturas que unem resistência, precisão e estética.</p>
+        <p>Atendemos indústrias, frigoríficos, laticínios, construtoras e agronegócio em todo o Brasil, com soluções personalizadas para cada cliente e cada desafio.</p>
+        <div class="diferenciais">
+          <div class="dif-item reveal d1">
+            <div class="dif-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><p>Fabricação Própria</p><span>Controle total do processo</span></div>
+          </div>
+          <div class="dif-item reveal d2">
+            <div class="dif-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><p>Prazo Cumprido</p><span>Planejamento e agilidade</span></div>
+          </div>
+          <div class="dif-item reveal d3">
+            <div class="dif-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><p>Engenharia Própria</p><span>Equipe técnica especializada</span></div>
+          </div>
+          <div class="dif-item reveal d4">
+            <div class="dif-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><p>Melhor Custo-Benefício</p><span>Sem intermediários</span></div>
+          </div>
+        </div>
+        </div><!-- fim sobre-texto-box -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="servicos">
+    <div class="section-header">
+      <div class="section-header-box">
+      <div class="section-label">O Que Fazemos</div>
+      <h2>Soluções completas em estruturas metálicas</h2>
+      <p>Do projeto ao acabamento, uma linha completa de soluções para indústria, comércio e agronegócio.</p>
+      </div>
+    </div>
+    <div class="servicos-grid">
+
+      <div class="servico-card reveal d1">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-galpao.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-galpao.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Galpões Industriais</h3>
+          <p>Estruturas para laticínios, frigoríficos, armazéns e indústrias em geral. Projetos sob medida para grandes vãos e cargas específicas.</p>
+        </div>
+      </div>
+
+      <div class="servico-card reveal d2">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-cobertura.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-cobertura.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Coberturas Metálicas</h3>
+          <p>Coberturas de alto desempenho para pátios, estacionamentos, quadras e áreas externas, com resistência e design diferenciado.</p>
+        </div>
+      </div>
+
+      <div class="servico-card reveal d3">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-mezanino.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-mezanino.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Mezaninos</h3>
+          <p>Otimize seu espaço vertical com mezaninos metálicos robustos e personalizados, ideais para armazenagem e operações logísticas.</p>
+        </div>
+      </div>
+
+      <div class="servico-card reveal d4">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-pergolado.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-pergolado.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Pergolados e Alpendres</h3>
+          <p>Estruturas elegantes para áreas de lazer, fachadas e espaços gourmet, unindo funcionalidade e estética arquitetônica.</p>
+        </div>
+      </div>
+
+      <div class="servico-card reveal d5">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-escada.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-escada.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Escadas Metálicas</h3>
+          <p>Escadas industriais e arquitetônicas com acabamento de alta qualidade, projetadas para segurança e durabilidade.</p>
+        </div>
+      </div>
+
+      <div class="servico-card reveal d6">
+        <div class="servico-card-top"></div>
+        <div class="servico-img">
+          <!-- SUBSTITUIR: arquivos/servico-retrofit.jpg -->
+          <div class="servico-img-lbl">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            arquivos/servico-retrofit.jpg
+          </div>
+        </div>
+        <div class="servico-body">
+          <h3>Retrofit de Estruturas</h3>
+          <p>Modernização e reforço de estruturas existentes, prolongando a vida útil e adequando às novas necessidades operacionais.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="depoimentos">
+    <div class="section-header">
+      <div class="section-header-box">
+      <div class="section-label">O Que Dizem</div>
+      <h2>A confiança dos nossos clientes</h2>
+      <p>Avaliações reais de quem já construiu com a Projeeng.</p>
+      </div>
+    </div>
+    <div class="depo-grid">
+      <!-- SUBSTITUIR: depoimentos reais do Google Meu Negócio -->
+      <div class="depo-card reveal d1">
+        <div class="estrelas">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p>"Contratamos a Projeeng para o galpão da nossa planta industrial e o resultado superou as expectativas. Prazo cumprido, estrutura impecável e equipe muito profissional do início ao fim."</p>
+        <div class="depo-autor">
+          <div class="depo-avatar">CM</div>
+          <div><div class="depo-nome">Carlos M.</div><div class="depo-empresa">Diretor Industrial — Setor de Alimentos</div></div>
+        </div>
+      </div>
+
+      <div class="depo-card reveal d2">
+        <div class="estrelas">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p>"Excelente experiência em todos os aspectos. A cobertura metálica foi entregue com qualidade de acabamento surpreendente. Certamente voltarei a contratar para outras obras."</p>
+        <div class="depo-autor">
+          <div class="depo-avatar">AR</div>
+          <div><div class="depo-nome">Ana R.</div><div class="depo-empresa">Gestora de Projetos — Construtora Regional</div></div>
+        </div>
+      </div>
+
+      <div class="depo-card reveal d3">
+        <div class="estrelas">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p>"A Projeeng nos assessorou desde o projeto até a montagem do mezanino. Atenção ao detalhe e profissionalismo acima do esperado. Recomendo sem hesitar."</p>
+        <div class="depo-autor">
+          <div class="depo-avatar">JP</div>
+          <div><div class="depo-nome">João P.</div><div class="depo-empresa">Proprietário — Logística e Armazenagem</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-pattern"></div>
+    <div class="cta-content">
+      <div class="section-label">Vamos Construir Juntos</div>
+      <h2>Seu projeto merece a melhor engenharia metálica</h2>
+      <p>Envie suas especificações e nossa equipe técnica retorna com uma análise completa. Sem compromisso, com total transparência.</p>
+      <div class="cta-btns">
+        <a href="contato.html" class="btn-cta-p">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Solicitar Orçamento Agora
+        </a>
+        <a href="https://wa.me/5549988546393" target="_blank" class="btn-cta-s">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <div class="footer-bar">
+
+      <!-- Endereço -->
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>Rua das Estruturas, 123</span>
+          <span>Bairro Industrial</span>
+          <span>Cidade - UF, 00000-000</span>
+        </div>
+      </div>
+
+      <!-- Telefone -->
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>(00) 0000-0000</span>
+          <span>(00) 00000-0000</span>
+        </div>
+      </div>
+
+      <!-- E-mail -->
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>contato@projeeng.com.br</span>
+        </div>
+      </div>
+
+      <!-- Site -->
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="footer-item-text">
+          <span>www.projeeng.com.br</span>
+        </div>
+      </div>
+
+      <!-- Redes Sociais -->
+      <div class="footer-social-group">
+        <!-- LinkedIn -->
+        <a href="#" target="_blank" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/projeengestruturasmetalicas/" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a href="#" target="_blank" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+  <div class="footer-stripe"></div>
+
+  <!-- WHATSAPP FLUTUANTE -->
+  <a href="https://wa.me/5549988546393" target="_blank" class="wpp-float">
+    <div class="wpp-tip">Solicitar orçamento</div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Menu hambúrguer mobile
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Fecha o menu ao clicar em qualquer link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Fecha ao clicar fora
+    document.addEventListener('click', (e) => {
+      if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Navbar shadow on scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.88;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add('visible');
+      });
+    }
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    checkReveal();
+  </script>
+</body>
+</html>
